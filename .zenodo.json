@@ -1,0 +1,13 @@
+{
+  "title": "mixing-weights-known-endmembers: code, numerical results and figures for \"Estimating the mixing weights of known endmembers: sharp maximum-likelihood risk, exact separation moduli, and the limits of anchor-based pairing\"",
+  "upload_type": "software",
+  "license": "MIT",
+  "version": "1.0.0",
+  "creators": [
+    {"name": "Pan, Lujia", "affiliation": "School of Mathematical Sciences, Hebei Normal University", "orcid": "0009-0004-2103-0193"}
+  ],
+  "description": "Python scripts, seeded numerical outputs (laptop runs and a 26-task Slurm grid) and figures reproducing every number and figure of the numerical sections of the paper, together with the machine checks of the constants in its proofs. Submitted to the Electronic Journal of Statistics.",
+  "keywords": ["mixture proportion estimation", "known components", "maximum likelihood", "Fisher information", "minimax lower bound", "modulus of continuity", "nonnegative matrix factorization", "anchor condition"],
+  "grants": [],
+  "notes": "Funding: Doctoral Research Startup Fund of Hebei Normal University (L2024B05); Science Research Project of the Hebei Provincial Department of Education (QN2025106)."
+}

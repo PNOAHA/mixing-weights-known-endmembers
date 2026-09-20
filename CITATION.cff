@@ -1,0 +1,30 @@
+cff-version: 1.2.0
+message: >-
+  If you use this software, please cite the paper (preferred-citation) and the
+  archived repository.
+type: software
+title: >-
+  mixing-weights-known-endmembers: code, numerical results and figures for
+  "Estimating the mixing weights of known endmembers: sharp maximum-likelihood risk, exact separation moduli, and the limits of anchor-based pairing"
+version: 1.0.0
+date-released: "2026-09-21"
+license: MIT
+repository-code: "https://github.com/PNOAHA/mixing-weights-known-endmembers"
+authors:
+  - family-names: Pan
+    given-names: Lujia
+    orcid: "https://orcid.org/0009-0004-2103-0193"
+    affiliation: >-
+      School of Mathematical Sciences, Hebei Normal University,
+      Shijiazhuang, China
+preferred-citation:
+  type: article
+  title: >-
+    Estimating the mixing weights of known endmembers: sharp maximum-likelihood risk, exact separation moduli, and the limits of anchor-based pairing
+  authors:
+    - family-names: Pan
+      given-names: Lujia
+      orcid: "https://orcid.org/0009-0004-2103-0193"
+  journal: Electronic Journal of Statistics
+  year: 2026
+  notes: Submitted

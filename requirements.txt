@@ -1,0 +1,6 @@
+# tested: Python 3.13.13 (miniconda), Windows 11 and Rocky Linux 9
+numpy>=2.0
+scipy>=1.14
+matplotlib>=3.9
+sympy>=1.13
+mpmath>=1.3
