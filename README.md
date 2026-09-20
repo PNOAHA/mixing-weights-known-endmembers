@@ -1,6 +1,6 @@
 # mixing-weights-known-endmembers
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE) [![DOI](https://img.shields.io/badge/DOI-pending-lightgrey)]() [![Python 3.13](https://img.shields.io/badge/python-3.13-blue.svg)]()
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE) [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22852168.svg)](https://doi.org/10.5281/zenodo.22852168) [![Python 3.13](https://img.shields.io/badge/python-3.13-blue.svg)]()
 
 Code, numerical results and figures of
 
@@ -53,7 +53,9 @@ Tested with Python 3.13.13, numpy 2.4.4, scipy 1.17.1, matplotlib 3.10.9, sympy 
 
 ## Citation
 
-Please cite the paper (see `CITATION.cff`); the archived version of this repository has a Zenodo DOI (badge above once minted).
+Please cite the paper (see `CITATION.cff`). The archived repository is
+
+> Pan, L. (2026). *mixing-weights-known-endmembers: code, numerical results and figures* (v1.0.0). Zenodo. https://doi.org/10.5281/zenodo.22852169 (concept DOI, all versions: https://doi.org/10.5281/zenodo.22852168)
 
 ## License
 
