@@ -7,7 +7,7 @@ Code, seeded numerical outputs and figures of
 > Pan, L. (2026). *Finite-sample risk of maximum likelihood for mixing weights with known components.* Manuscript in preparation for submission to the *Journal of Multivariate Analysis*.
 
 Release **v1.1.0** (2026-10-18) contains everything behind the numerical section (Section 5, Figures 1–3) of the
-current manuscript. Release v1.0.0 (2026-09-20, https://doi.org/10.5281/zenodo.22852169) is the archive of an
+current manuscript (Zenodo: https://doi.org/10.5281/zenodo.23445499). Release v1.0.0 (2026-09-20, https://doi.org/10.5281/zenodo.22852169) is the archive of an
 earlier, longer manuscript (*Estimating the mixing weights of known endmembers: sharp maximum-likelihood risk, exact
 separation moduli, and the limits of anchor-based pairing*); its files are kept unchanged below as "legacy".
 Paths are given relative to `code/`.
@@ -121,7 +121,7 @@ Tested with Python 3.13.13, numpy 2.4.4, scipy 1.17.1, matplotlib 3.10.9, sympy 
 
 Please cite the paper (see `CITATION.cff`). The archived repository is
 
-> Pan, L. (2026). *mixing-weights-known-endmembers: code, numerical results and figures* (v1.1.0). Zenodo. https://doi.org/10.5281/zenodo.22852168 (concept DOI, all versions; v1.0.0: https://doi.org/10.5281/zenodo.22852169)
+> Pan, L. (2026). *mixing-weights-known-endmembers: code, numerical results and figures* (v1.1.0). Zenodo. https://doi.org/10.5281/zenodo.23445499 (concept DOI, all versions: https://doi.org/10.5281/zenodo.22852168; v1.0.0: https://doi.org/10.5281/zenodo.22852169)
 
 ## License
 

@@ -11,6 +11,16 @@ date-released: "2026-10-18"
 license: MIT
 repository-code: "https://github.com/PNOAHA/mixing-weights-known-endmembers"
 doi: 10.5281/zenodo.22852168
+identifiers:
+  - type: doi
+    value: 10.5281/zenodo.22852168
+    description: Concept DOI (all versions)
+  - type: doi
+    value: 10.5281/zenodo.23445499
+    description: Version DOI of v1.1.0
+  - type: doi
+    value: 10.5281/zenodo.22852169
+    description: Version DOI of v1.0.0
 authors:
   - family-names: Pan
     given-names: Lujia
