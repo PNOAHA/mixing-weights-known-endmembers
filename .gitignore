@@ -2,3 +2,7 @@ __pycache__/
 *.pyc
 .ipynb_checkpoints/
 .venv/
+# per-replication acceptance evidence (~41 MB), available on request
+code/results/d107/strict_acceptance/
+# optional local copy of the v1.0.0 CSVs (otherwise read from the git tag)
+code/results/d107/legacy_v1.0.0/

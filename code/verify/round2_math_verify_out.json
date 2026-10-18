@@ -1,0 +1,449 @@
+{
+  "metadata": {
+    "date": "2026-10-11",
+    "author": "LN",
+    "python_executable": "C:\\Users\\Administrator\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+    "sympy_version": "1.14.0",
+    "numpy_version": "2.3.5",
+    "scope": "round 2 deterministic symbolic/enumeration checks; no Monte Carlo or HPC"
+  },
+  "constants_and_elementary_algebra": {
+    "passed": true,
+    "step2_nonnegative_polynomial_certificate": "D*(1 - D) + (16 - 4*(D + 1)**2)*(A**2 + A)",
+    "corollary_bracket_at_u_1_over_120": 1.4400977604513754,
+    "tail_constant_2_times_35_squared_times_182_over_181": 2463.53591160221,
+    "threshold_parameter_combinations": 48,
+    "scope": "checks intermediate constants and exact algebra, not Monte Carlo risk"
+  },
+  "zero_variance_matrix_net_counterexample": {
+    "verified": true,
+    "model": "K=2; two disjoint point masses; w=(1/2,1/2)",
+    "squared_tangent_score_values": [
+      "2",
+      "2"
+    ],
+    "centered_concentration_variable_values": [
+      "0",
+      "0"
+    ],
+    "impact": "matrix-net Bernstein application can have zero variance; tail event then has probability zero"
+  },
+  "fourth_moment_exact_enumeration": {
+    "passed": true,
+    "records": [
+      {
+        "n": 1,
+        "enumerated_value": "18",
+        "formula_value": "18"
+      },
+      {
+        "n": 2,
+        "enumerated_value": "108",
+        "formula_value": "108"
+      },
+      {
+        "n": 3,
+        "enumerated_value": "270",
+        "formula_value": "270"
+      },
+      {
+        "n": 4,
+        "enumerated_value": "504",
+        "formula_value": "504"
+      }
+    ]
+  },
+  "finite_pairs_and_common_background": {
+    "passed": true,
+    "records": [
+      {
+        "K": 2,
+        "a": 1.0,
+        "n": 1,
+        "minimum_pair_weight": 0.028595479208968377,
+        "n_chi_squared": 0.8888888888888886,
+        "n_Hellinger_squared": 0.18350341907227388,
+        "n_KL": 0.5633216850391713
+      },
+      {
+        "K": 2,
+        "a": 1.0,
+        "n": 11,
+        "minimum_pair_weight": 0.3578661890962597,
+        "n_chi_squared": 0.8888888888888884,
+        "n_Hellinger_squared": 0.11404249786113788,
+        "n_KL": 0.45063252962935174
+      },
+      {
+        "K": 2,
+        "a": 0.4,
+        "n": 3,
+        "minimum_pair_weight": 0.06966851708806487,
+        "n_chi_squared": 0.8888888888888886,
+        "n_Hellinger_squared": 0.15759602092256605,
+        "n_KL": 0.5284398265543386
+      },
+      {
+        "K": 2,
+        "a": 0.4,
+        "n": 13,
+        "minimum_pair_weight": 0.2932754423513193,
+        "n_chi_squared": 0.8888888888888883,
+        "n_Hellinger_squared": 0.11764541832906657,
+        "n_KL": 0.4580613142787513
+      },
+      {
+        "K": 2,
+        "a": 0.03,
+        "n": 30,
+        "minimum_pair_weight": 0.003096005000046753,
+        "n_chi_squared": 0.8888888888888887,
+        "n_Hellinger_squared": 0.229179606750063,
+        "n_KL": 0.6049515261814267
+      },
+      {
+        "K": 2,
+        "a": 0.03,
+        "n": 40,
+        "minimum_pair_weight": 0.06966851708806482,
+        "n_chi_squared": 0.8888888888888886,
+        "n_Hellinger_squared": 0.15759602092256608,
+        "n_KL": 0.5284398265543386
+      },
+      {
+        "K": 3,
+        "a": 1.0,
+        "n": 2,
+        "minimum_pair_weight": 0.06116780635742464,
+        "n_chi_squared": 0.8888888888888886,
+        "n_Hellinger_squared": 0.149234888030513,
+        "n_KL": 0.5154335543593535
+      },
+      {
+        "K": 3,
+        "a": 1.0,
+        "n": 12,
+        "minimum_pair_weight": 0.2222222222222222,
+        "n_chi_squared": 0.8888888888888888,
+        "n_Hellinger_squared": 0.11521152277208971,
+        "n_KL": 0.45306409812105947
+      },
+      {
+        "K": 3,
+        "a": 0.4,
+        "n": 5,
+        "minimum_pair_weight": 0.06116780635742464,
+        "n_chi_squared": 0.8888888888888888,
+        "n_Hellinger_squared": 0.14923488803051302,
+        "n_KL": 0.5154335543593537
+      },
+      {
+        "K": 3,
+        "a": 0.4,
+        "n": 15,
+        "minimum_pair_weight": 0.1761984930696561,
+        "n_chi_squared": 0.8888888888888892,
+        "n_Hellinger_squared": 0.11987927642636684,
+        "n_KL": 0.46257117397149644
+      },
+      {
+        "K": 3,
+        "a": 0.03,
+        "n": 60,
+        "minimum_pair_weight": 0.04644567805870986,
+        "n_chi_squared": 0.888888888888889,
+        "n_Hellinger_squared": 0.15759602092256608,
+        "n_KL": 0.5284398265543387
+      },
+      {
+        "K": 3,
+        "a": 0.03,
+        "n": 70,
+        "minimum_pair_weight": 0.06772697570346814,
+        "n_chi_squared": 0.8888888888888886,
+        "n_Hellinger_squared": 0.14615247396092404,
+        "n_KL": 0.5104170246697194
+      },
+      {
+        "K": 4,
+        "a": 1.0,
+        "n": 3,
+        "minimum_pair_weight": 0.057549910270124766,
+        "n_chi_squared": 0.8888888888888885,
+        "n_Hellinger_squared": 0.1424027361484358,
+        "n_KL": 0.504150767662431
+      },
+      {
+        "K": 4,
+        "a": 1.0,
+        "n": 13,
+        "minimum_pair_weight": 0.15754996729579518,
+        "n_chi_squared": 0.8888888888888883,
+        "n_Hellinger_squared": 0.11623333423026085,
+        "n_KL": 0.4551727462782422
+      },
+      {
+        "K": 4,
+        "a": 0.4,
+        "n": 7,
+        "minimum_pair_weight": 0.05079523177760109,
+        "n_chi_squared": 0.8888888888888888,
+        "n_Hellinger_squared": 0.1461524739609241,
+        "n_KL": 0.5104170246697195
+      },
+      {
+        "K": 4,
+        "a": 0.4,
+        "n": 17,
+        "minimum_pair_weight": 0.12217250185877163,
+        "n_chi_squared": 0.8888888888888887,
+        "n_Hellinger_squared": 0.12169084432479808,
+        "n_KL": 0.46617534649496567
+      },
+      {
+        "K": 4,
+        "a": 0.03,
+        "n": 89,
+        "minimum_pair_weight": 0.046003312879298486,
+        "n_chi_squared": 0.888888888888889,
+        "n_Hellinger_squared": 0.14915075009940928,
+        "n_KL": 0.5152982217189881
+      },
+      {
+        "K": 4,
+        "a": 0.03,
+        "n": 99,
+        "minimum_pair_weight": 0.05658038227144688,
+        "n_chi_squared": 0.8888888888888883,
+        "n_Hellinger_squared": 0.14291058652497615,
+        "n_KL": 0.5050100456605132
+      }
+    ],
+    "two_point_constant_at_c_8_over_9": "1/27"
+  },
+  "exact_selected_count_vs_full_support_MLE": {
+    "passed": true,
+    "symbolic_ratio": "1 + (-1 + 1/a)/(2*t*(1 - t))",
+    "records": [
+      {
+        "t": "1/5",
+        "a": "1",
+        "n": 1,
+        "enumerated_count_risk": "8/25",
+        "enumerated_MLE_risk": "8/25",
+        "ratio": "1"
+      },
+      {
+        "t": "1/5",
+        "a": "1",
+        "n": 2,
+        "enumerated_count_risk": "4/25",
+        "enumerated_MLE_risk": "4/25",
+        "ratio": "1"
+      },
+      {
+        "t": "1/5",
+        "a": "1",
+        "n": 3,
+        "enumerated_count_risk": "8/75",
+        "enumerated_MLE_risk": "8/75",
+        "ratio": "1"
+      },
+      {
+        "t": "1/5",
+        "a": "1/3",
+        "n": 1,
+        "enumerated_count_risk": "58/25",
+        "enumerated_MLE_risk": "8/25",
+        "ratio": "29/4"
+      },
+      {
+        "t": "1/5",
+        "a": "1/3",
+        "n": 2,
+        "enumerated_count_risk": "29/25",
+        "enumerated_MLE_risk": "4/25",
+        "ratio": "29/4"
+      },
+      {
+        "t": "1/5",
+        "a": "1/3",
+        "n": 3,
+        "enumerated_count_risk": "58/75",
+        "enumerated_MLE_risk": "8/75",
+        "ratio": "29/4"
+      },
+      {
+        "t": "1/5",
+        "a": "1/100",
+        "n": 1,
+        "enumerated_count_risk": "2483/25",
+        "enumerated_MLE_risk": "8/25",
+        "ratio": "2483/8"
+      },
+      {
+        "t": "1/5",
+        "a": "1/100",
+        "n": 2,
+        "enumerated_count_risk": "2483/50",
+        "enumerated_MLE_risk": "4/25",
+        "ratio": "2483/8"
+      },
+      {
+        "t": "1/5",
+        "a": "1/100",
+        "n": 3,
+        "enumerated_count_risk": "2483/75",
+        "enumerated_MLE_risk": "8/75",
+        "ratio": "2483/8"
+      },
+      {
+        "t": "1/2",
+        "a": "1",
+        "n": 1,
+        "enumerated_count_risk": "1/2",
+        "enumerated_MLE_risk": "1/2",
+        "ratio": "1"
+      },
+      {
+        "t": "1/2",
+        "a": "1",
+        "n": 2,
+        "enumerated_count_risk": "1/4",
+        "enumerated_MLE_risk": "1/4",
+        "ratio": "1"
+      },
+      {
+        "t": "1/2",
+        "a": "1",
+        "n": 3,
+        "enumerated_count_risk": "1/6",
+        "enumerated_MLE_risk": "1/6",
+        "ratio": "1"
+      },
+      {
+        "t": "1/2",
+        "a": "1/3",
+        "n": 1,
+        "enumerated_count_risk": "5/2",
+        "enumerated_MLE_risk": "1/2",
+        "ratio": "5"
+      },
+      {
+        "t": "1/2",
+        "a": "1/3",
+        "n": 2,
+        "enumerated_count_risk": "5/4",
+        "enumerated_MLE_risk": "1/4",
+        "ratio": "5"
+      },
+      {
+        "t": "1/2",
+        "a": "1/3",
+        "n": 3,
+        "enumerated_count_risk": "5/6",
+        "enumerated_MLE_risk": "1/6",
+        "ratio": "5"
+      },
+      {
+        "t": "1/2",
+        "a": "1/100",
+        "n": 1,
+        "enumerated_count_risk": "199/2",
+        "enumerated_MLE_risk": "1/2",
+        "ratio": "199"
+      },
+      {
+        "t": "1/2",
+        "a": "1/100",
+        "n": 2,
+        "enumerated_count_risk": "199/4",
+        "enumerated_MLE_risk": "1/4",
+        "ratio": "199"
+      },
+      {
+        "t": "1/2",
+        "a": "1/100",
+        "n": 3,
+        "enumerated_count_risk": "199/6",
+        "enumerated_MLE_risk": "1/6",
+        "ratio": "199"
+      },
+      {
+        "t": "4/5",
+        "a": "1",
+        "n": 1,
+        "enumerated_count_risk": "8/25",
+        "enumerated_MLE_risk": "8/25",
+        "ratio": "1"
+      },
+      {
+        "t": "4/5",
+        "a": "1",
+        "n": 2,
+        "enumerated_count_risk": "4/25",
+        "enumerated_MLE_risk": "4/25",
+        "ratio": "1"
+      },
+      {
+        "t": "4/5",
+        "a": "1",
+        "n": 3,
+        "enumerated_count_risk": "8/75",
+        "enumerated_MLE_risk": "8/75",
+        "ratio": "1"
+      },
+      {
+        "t": "4/5",
+        "a": "1/3",
+        "n": 1,
+        "enumerated_count_risk": "58/25",
+        "enumerated_MLE_risk": "8/25",
+        "ratio": "29/4"
+      },
+      {
+        "t": "4/5",
+        "a": "1/3",
+        "n": 2,
+        "enumerated_count_risk": "29/25",
+        "enumerated_MLE_risk": "4/25",
+        "ratio": "29/4"
+      },
+      {
+        "t": "4/5",
+        "a": "1/3",
+        "n": 3,
+        "enumerated_count_risk": "58/75",
+        "enumerated_MLE_risk": "8/75",
+        "ratio": "29/4"
+      },
+      {
+        "t": "4/5",
+        "a": "1/100",
+        "n": 1,
+        "enumerated_count_risk": "2483/25",
+        "enumerated_MLE_risk": "8/25",
+        "ratio": "2483/8"
+      },
+      {
+        "t": "4/5",
+        "a": "1/100",
+        "n": 2,
+        "enumerated_count_risk": "2483/50",
+        "enumerated_MLE_risk": "4/25",
+        "ratio": "2483/8"
+      },
+      {
+        "t": "4/5",
+        "a": "1/100",
+        "n": 3,
+        "enumerated_count_risk": "2483/75",
+        "enumerated_MLE_risk": "8/75",
+        "ratio": "2483/8"
+      }
+    ],
+    "realization": "disjoint uniform supports, each split into a selected region of mass a and its complement"
+  },
+  "all_passed": true,
+  "elapsed_seconds": 0.2865425000054529
+}

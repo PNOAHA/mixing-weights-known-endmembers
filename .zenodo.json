@@ -1,13 +1,14 @@
 {
-  "title": "mixing-weights-known-endmembers: code, numerical results and figures for \"Estimating the mixing weights of known endmembers: sharp maximum-likelihood risk, exact separation moduli, and the limits of anchor-based pairing\"",
+  "title": "mixing-weights-known-endmembers: code, numerical results and figures for \"Finite-sample risk of maximum likelihood for mixing weights with known components\"",
   "upload_type": "software",
   "license": "MIT",
-  "version": "1.0.0",
+  "version": "1.1.0",
+  "publication_date": "2026-10-18",
   "creators": [
     {"name": "Pan, Lujia", "affiliation": "School of Mathematical Sciences, Hebei Normal University", "orcid": "0009-0004-2103-0193"}
   ],
-  "description": "Python scripts, seeded numerical outputs (laptop runs and a 26-task Slurm grid) and figures reproducing every number and figure of the numerical sections of the paper, together with the machine checks of the constants in its proofs. Submitted to the Electronic Journal of Statistics.",
-  "keywords": ["mixture proportion estimation", "known components", "maximum likelihood", "Fisher information", "minimax lower bound", "modulus of continuity", "nonnegative matrix factorization", "anchor condition"],
+  "description": "Python scripts, seeded numerical outputs, component matrices and figures behind the numerical section (Section 5, Figures 1-3) of the manuscript \"Finite-sample risk of maximum likelihood for mixing weights with known components\" (L. Pan; manuscript in preparation for submission to the Journal of Multivariate Analysis). Version 1.1.0 adds a strict 1e-8 KKT dual-gap acceptance of every maximum-likelihood replication (all 4,164 grid rows, 8,328,000 replications accepted), the acceptance and independent-check scripts, and machine checks for the current manuscript. Files of the earlier manuscript archived as v1.0.0 are kept unchanged as legacy.",
+  "keywords": ["mixture proportion estimation", "known components", "mixing weights", "maximum likelihood", "finite-sample risk", "Fisher information", "local minimax risk", "anchor condition"],
   "grants": [],
   "notes": "Funding: Doctoral Research Startup Fund of Hebei Normal University (L2024B05); Science Research Project of the Hebei Provincial Department of Education (QN2025106)."
 }

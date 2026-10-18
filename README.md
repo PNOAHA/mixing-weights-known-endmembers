@@ -2,15 +2,81 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE) [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22852168.svg)](https://doi.org/10.5281/zenodo.22852168) [![Python 3.13](https://img.shields.io/badge/python-3.13-blue.svg)]()
 
-Code, numerical results and figures of
+Code, seeded numerical outputs and figures of
 
-> Pan, L. (2026). *Estimating the mixing weights of known endmembers: sharp maximum-likelihood risk, exact separation moduli, and the limits of anchor-based pairing.* Submitted to the *Electronic Journal of Statistics*.
+> Pan, L. (2026). *Finite-sample risk of maximum likelihood for mixing weights with known components.* Manuscript in preparation for submission to the *Journal of Multivariate Analysis*.
 
-Every number and figure of the paper's numerical sections (Section 6) and every constant of its proofs that was
-checked by machine (Appendix C, Theorems 3.1, 3.2, 4.2, 5.1, 5.3, Propositions 3.5, A.1–A.3, Theorem B.1) is
-produced by the scripts below. Paths in the paper are given relative to `code/`, exactly as in this repository.
+Release **v1.1.0** (2026-10-18) contains everything behind the numerical section (Section 5, Figures 1–3) of the
+current manuscript. Release v1.0.0 (2026-09-20, https://doi.org/10.5281/zenodo.22852169) is the archive of an
+earlier, longer manuscript (*Estimating the mixing weights of known endmembers: sharp maximum-likelihood risk, exact
+separation moduli, and the limits of anchor-based pairing*); its files are kept unchanged below as "legacy".
+Paths are given relative to `code/`.
 
-## Layout
+## Current manuscript (v1.1.0)
+
+| Manuscript | Files |
+|---|---|
+| Figure 1 (ratio n·E‖ŵ−w‖² / tr I(w)⁻¹, K=3, F1, θ=0.3) | `figs/d107/figG2_k3_mle_ratio.{pdf,png}` |
+| Figure 2 (same ratio against θ_n = ρ_w²/(n λ_min(I(w))), F1, K=3,4, θ∈{0,0.3,0.6}) | `figs/d107/figG3_mle_ratio_vs_minw.{pdf,png}` |
+| Figure 3 (anchor-count statistic vs MLE, F2, K=3, a∈{0.3,0.1,0.03}, n=1600) | `figs/d107/figG4_k3_anchor_vs_mle.{pdf,png}` |
+| Every number quoted in Section 5 | `results/d107/_summary_fig123_dualgap.json` |
+| Grid outputs read by Figures 1–3 | `results/d107/grid_{3_F1_0.0,3_F1_0.3,3_F1_0.6,3_F2_0.03,3_F2_0.1,3_F2_0.3,4_F1_0.0,4_F1_0.3,4_F1_0.6}{,_mle}.csv` |
+| Component matrices of these nine grids | `results/d107/P_<K>_<family>_<parameter>.npy` |
+
+```
+code/
+├── generator.py                 component families F1 (overlap θ), F2 (anchor mass a), Fisher/Gram quantities
+├── run_grid_d107.py             one task = one (K, family, parameter); MLE = EM + tangent Newton, finished by
+│                                mle_dualgap.polish_mle with a strict 1e-8 KKT dual-gap acceptance on the average
+│                                log-likelihood (batches failing the gate are rejected); strict=False replays v1.0.0
+├── mle_dualgap.py               likelihood polishing on the simplex (exact faces allowed) with the dual-gap gate
+├── make_figs_d107.py            --fig123-only: Figures 1–3 and results/d107/_summary_fig123_dualgap.json
+└── verify/
+    ├── fig123_dualgap_acceptance.py  re-solves (same seeds, same preceding draws) every batch with an unaccepted
+    │                                 replication and writes per-replication evidence to results/d107/strict_acceptance/
+    ├── finalize_fig123_dualgap.py    validates the nine accepted CSVs against v1.0.0 (read from the git tag v1.0.0)
+    ├── mle_dualgap_verify.py         independent checks: RNG alignment with the v1.0.0 archive, 720 polisher cases,
+    │                                 gap snapshot of the shipped CSVs; output mle_dualgap_verify_out.json
+    ├── recheck_s1_near_vertex.py     near-vertex point (K=4, θ=0.6, w=(0.9625,0.0125,0.0125,0.0125), n=6400):
+    │                                 v1.0.0 solver vs dual-gap–accepted MLE on identical draws
+    ├── revision_a_local_verify.py, round2_math_verify.py  symbolic / enumeration checks of constants and lemmas of
+    │                                 the current manuscript (outputs *_out.json)
+    └── pillar1_verify.py, pillar1_exam_verify.py, pillar4_verify.py  auxiliary checks from preparatory notes
+```
+
+Dual-gap acceptance: for every replication the reported estimate ŵ satisfies max_k s_k(ŵ) − ŵ·s(ŵ) ≤ 1e-8, where
+s is the score of the average log-likelihood on the observed cells, i.e. the average log-likelihood is within 1e-8 of
+its maximum over the simplex. All 4,164 rows (8,328,000 replications) of the nine `*_mle.csv` files are accepted
+(`dual_gap_accept_frac = 1`, largest gap 9.99997e-9). Columns added in v1.1.0: `dual_gap_max`, `dual_gap_med`,
+`dual_gap_accept_frac`, `n_refined`, `n_polished` and, where at least one batch had to be re-solved,
+`feasibility_accept_frac` (filled for re-solved batches only; `grid_3_F2_0.3_mle.csv` needed no re-solve and so has
+no such column).
+
+The per-replication acceptance evidence (`results/d107/strict_acceptance/`: 9 JSON reports, 9 staged CSVs and
+641 NPZ files, about 41 MB) is not included in the repository to keep it small; it is available from the author on
+request and can be regenerated with `verify/fig123_dualgap_acceptance.py`.
+
+### Reproducing (v1.1.0)
+
+```bash
+python -m pip install -r requirements.txt
+cd code
+python make_figs_d107.py --fig123-only      # Figures 1–3 + results/d107/_summary_fig123_dualgap.json (seconds)
+python verify/mle_dualgap_verify.py          # independent checks (seconds; needs git for the v1.0.0 archive)
+python run_grid_d107.py TASK_ID              # regenerate one grid; Figures 1–3 use TASK_ID 0 2 4 6 7 8 13 15 17
+```
+
+Everything is seeded (seed 20260919 + task id for the components, 1000·task id + lattice index for the samples).
+Regenerated PNG files and `_summary_fig123_dualgap.json` are byte-identical to the shipped ones; PDF files differ only
+in their `/CreationDate`. Tested with Python 3.13.13, numpy 2.4.4, scipy 1.17.1, matplotlib 3.10.9 (Windows 11).
+
+## Legacy files (v1.0.0, earlier manuscript)
+
+The files below are unchanged from v1.0.0 (section, figure and theorem numbers refer to the earlier manuscript).
+In v1.1.0 only the nine grids listed above, `run_grid_d107.py`, `make_figs_d107.py` and Figures G2–G4 were updated;
+`results/d107/_summary_numbers.json`, Figures G1/G5/G6, the F3 grids and the `*_v02` outputs are as in v1.0.0.
+
+### Layout (v1.0.0)
 
 ```
 code/
@@ -35,7 +101,7 @@ code/
 └── figs/                     Figures 1–4 (fig_*.pdf/.png) and 5–10 (d107/figG*.pdf/.png)
 ```
 
-## Reproducing
+### Reproducing (v1.0.0)
 
 ```bash
 python -m pip install -r requirements.txt
@@ -55,7 +121,7 @@ Tested with Python 3.13.13, numpy 2.4.4, scipy 1.17.1, matplotlib 3.10.9, sympy 
 
 Please cite the paper (see `CITATION.cff`). The archived repository is
 
-> Pan, L. (2026). *mixing-weights-known-endmembers: code, numerical results and figures* (v1.0.0). Zenodo. https://doi.org/10.5281/zenodo.22852169 (concept DOI, all versions: https://doi.org/10.5281/zenodo.22852168)
+> Pan, L. (2026). *mixing-weights-known-endmembers: code, numerical results and figures* (v1.1.0). Zenodo. https://doi.org/10.5281/zenodo.22852168 (concept DOI, all versions; v1.0.0: https://doi.org/10.5281/zenodo.22852169)
 
 ## License
 

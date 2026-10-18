@@ -1,0 +1,630 @@
+{
+  "metadata": {
+    "date": "2026-10-11",
+    "author": "LN",
+    "python_executable": "C:\\Users\\Administrator\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+    "python_version": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+    "libraries": {
+      "numpy": [
+        "2.3.5",
+        "C:\\Users\\Administrator\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\Lib\\site-packages\\numpy\\__init__.py"
+      ],
+      "sympy": [
+        "1.14.0",
+        "C:\\Users\\Administrator\\miniconda3\\Lib\\site-packages\\sympy\\__init__.py"
+      ],
+      "scipy": [
+        "1.17.1",
+        "C:\\Users\\Administrator\\miniconda3\\envs\\geo-figs\\Lib\\site-packages\\scipy\\__init__.py"
+      ]
+    },
+    "scope": "deterministic symbolic/algebra/optimization checks; no Monte Carlo"
+  },
+  "symbolic_prior_and_matrices": {
+    "passed": true,
+    "prior_normalization": "1",
+    "prior_mean_score": "0",
+    "prior_fisher_one_coordinate": "pi**2/s**2",
+    "prior_information_matrices": {
+      "1": "Matrix([[pi**2/s**2]])",
+      "2": "Matrix([[pi**2/s**2, 0], [0, pi**2/s**2]])",
+      "3": "Matrix([[pi**2/s**2, 0, 0], [0, pi**2/s**2, 0], [0, 0, pi**2/s**2]])",
+      "4": "Matrix([[pi**2/s**2, 0, 0, 0], [0, pi**2/s**2, 0, 0], [0, 0, pi**2/s**2, 0], [0, 0, 0, pi**2/s**2]])"
+    },
+    "non_diagonal_matrix_trace_identity": true,
+    "exact_prior_trace_term": "pi**2*(a**2 + 2*b**2 + c**2)/(s**2*(a*c - b**2)**2)",
+    "fixed_parameter_lower_and_upper_limits": "1; 1",
+    "vertex_asymptotic_constant": "2**(1/4)/2"
+  },
+  "box_and_uniform_MLE_parameters": {
+    "passed": true,
+    "records": [
+      {
+        "K": 2,
+        "eta": 0.15,
+        "corners": 2,
+        "min_Loewner_difference_eigenvalue": 0.049949724429527886,
+        "max_tau_to_uniform_cap": 0.874539155145476,
+        "max_rhs_to_uniform_rhs": 0.6428968023389228
+      },
+      {
+        "K": 2,
+        "eta": 0.4,
+        "corners": 2,
+        "min_Loewner_difference_eigenvalue": 0.11144572243576267,
+        "max_tau_to_uniform_cap": 0.719598793376924,
+        "max_rhs_to_uniform_rhs": 0.6075648890287952
+      },
+      {
+        "K": 2,
+        "eta": 0.5,
+        "corners": 2,
+        "min_Loewner_difference_eigenvalue": 0.1313635689503841,
+        "max_tau_to_uniform_cap": 0.6701908478316237,
+        "max_rhs_to_uniform_rhs": 0.5984755027608852
+      },
+      {
+        "K": 3,
+        "eta": 0.15,
+        "corners": 4,
+        "min_Loewner_difference_eigenvalue": 0.035099346189921096,
+        "max_tau_to_uniform_cap": 0.8748353225739657,
+        "max_rhs_to_uniform_rhs": 0.6695993123131015
+      },
+      {
+        "K": 3,
+        "eta": 0.4,
+        "corners": 4,
+        "min_Loewner_difference_eigenvalue": 0.07550533936316402,
+        "max_tau_to_uniform_cap": 0.7249865386585403,
+        "max_rhs_to_uniform_rhs": 0.7808321456471972
+      },
+      {
+        "K": 3,
+        "eta": 0.5,
+        "corners": 4,
+        "min_Loewner_difference_eigenvalue": 0.0874829369772858,
+        "max_tau_to_uniform_cap": 0.6787544823576939,
+        "max_rhs_to_uniform_rhs": 0.8235468062237344
+      },
+      {
+        "K": 5,
+        "eta": 0.15,
+        "corners": 16,
+        "min_Loewner_difference_eigenvalue": 0.06375862204942238,
+        "max_tau_to_uniform_cap": 0.8717967828517242,
+        "max_rhs_to_uniform_rhs": 0.8976235684511126
+      },
+      {
+        "K": 5,
+        "eta": 0.4,
+        "corners": 16,
+        "min_Loewner_difference_eigenvalue": 0.13889398660884902,
+        "max_tau_to_uniform_cap": 0.7189294911871932,
+        "max_rhs_to_uniform_rhs": 0.9396403745490354
+      },
+      {
+        "K": 5,
+        "eta": 0.5,
+        "corners": 16,
+        "min_Loewner_difference_eigenvalue": 0.16169145882077107,
+        "max_tau_to_uniform_cap": 0.6719710456434382,
+        "max_rhs_to_uniform_rhs": 0.9537215583815294
+      }
+    ],
+    "scope": "finite discrete examples check algebra; no new arbitrary-family proof"
+  },
+  "vertex_Hellinger_optimization": {
+    "passed": true,
+    "records": [
+      {
+        "delta": 0.001,
+        "analytic_H2": 0.0003536159127001115,
+        "optimized_H2": 0.00035361591244361605,
+        "relative_error": 7.253504463733407e-10,
+        "optimizer_w2_w3": [
+          0.0007071067806736987,
+          0.0
+        ],
+        "successful_feasible_starts": 13
+      },
+      {
+        "delta": 0.01,
+        "analytic_H2": 0.0035418061011618374,
+        "optimized_H2": 0.0035418061010943436,
+        "relative_error": 1.9056312083876037e-11,
+        "optimizer_w2_w3": [
+          0.007071067811730938,
+          0.0
+        ],
+        "successful_feasible_starts": 13
+      },
+      {
+        "delta": 0.05,
+        "analytic_H2": 0.017836744252426984,
+        "optimized_H2": 0.017836744252220933,
+        "relative_error": 1.1551981593527216e-11,
+        "optimizer_w2_w3": [
+          0.0,
+          0.03535533905892273
+        ],
+        "successful_feasible_starts": 11
+      },
+      {
+        "delta": 0.2,
+        "analytic_H2": 0.07340481127803677,
+        "optimized_H2": 0.07340481127803057,
+        "relative_error": 8.448797217397441e-14,
+        "optimizer_w2_w3": [
+          0.14142135623729765,
+          2.0306378995284283e-16
+        ],
+        "successful_feasible_starts": 15
+      },
+      {
+        "delta": 0.5,
+        "analytic_H2": 0.1959809645246412,
+        "optimized_H2": 0.1959809645246411,
+        "relative_error": 5.551115123125783e-16,
+        "optimizer_w2_w3": [
+          9.25923635427395e-18,
+          0.35355339059327356
+        ],
+        "successful_feasible_starts": 11
+      },
+      {
+        "delta": 1.0,
+        "analytic_H2": 0.458803899853803,
+        "optimized_H2": 0.45880389985380005,
+        "relative_error": 6.439293542825908e-15,
+        "optimizer_w2_w3": [
+          0.7071067811865439,
+          4.781796369117905e-16
+        ],
+        "successful_feasible_starts": 15
+      }
+    ],
+    "method": "direct 2-variable SLSQP; simplex and Euclidean lower-distance constraints"
+  },
+  "Bernoulli_example_and_KL_bridge": {
+    "passed": true,
+    "symbolic_tangent_Fisher": "-2*(a - b)**2/((2*b + (a - b)*(2*t + sqrt(2)*y))*(2*b + (a - b)*(2*t + sqrt(2)*y) - 2))",
+    "symbolic_unclipped_Euclidean_risk": "(2*b + 2*(a - b)*(t + sqrt(2)*y/2))*(-b - (a - b)*(t + sqrt(2)*y/2) + 1)/(n*(a - b)**2)",
+    "symbolic_exact_risk_equals_trace_inverse_over_n": true,
+    "bridge_records": [
+      {
+        "family": 0,
+        "cTV": 1.414213562373095,
+        "w1": 0.2,
+        "w1_prime": 0.03,
+        "weight_loss": 0.05780000000000001,
+        "KL_wprime_over_w": 0.12999021396803967,
+        "KL_w_over_wprime": 0.22527652191357536,
+        "two_KL_wprime_over_w_over_cTV_squared": 0.1299902139680397,
+        "two_KL_w_over_wprime_over_cTV_squared": 0.22527652191357542
+      },
+      {
+        "family": 0,
+        "cTV": 1.414213562373095,
+        "w1": 0.2,
+        "w1_prime": 0.4,
+        "weight_loss": 0.08000000000000002,
+        "KL_wprime_over_w": 0.10464962875290948,
+        "KL_w_over_wprime": 0.09151622184943578,
+        "two_KL_wprime_over_w_over_cTV_squared": 0.10464962875290951,
+        "two_KL_w_over_wprime_over_cTV_squared": 0.0915162218494358
+      },
+      {
+        "family": 0,
+        "cTV": 1.414213562373095,
+        "w1": 0.2,
+        "w1_prime": 0.97,
+        "weight_loss": 1.1858,
+        "KL_wprime_over_w": 1.4331069134207368,
+        "KL_w_over_wprime": 2.3109357358147387,
+        "two_KL_wprime_over_w_over_cTV_squared": 1.433106913420737,
+        "two_KL_w_over_wprime_over_cTV_squared": 2.310935735814739
+      },
+      {
+        "family": 0,
+        "cTV": 1.414213562373095,
+        "w1": 0.5,
+        "w1_prime": 0.03,
+        "weight_loss": 0.44179999999999997,
+        "KL_wprime_over_w": 0.5584050123801785,
+        "KL_w_over_wprime": 1.0753613718424,
+        "two_KL_wprime_over_w_over_cTV_squared": 0.5584050123801786,
+        "two_KL_w_over_wprime_over_cTV_squared": 1.0753613718424002
+      },
+      {
+        "family": 0,
+        "cTV": 1.414213562373095,
+        "w1": 0.5,
+        "w1_prime": 0.4,
+        "weight_loss": 0.01999999999999999,
+        "KL_wprime_over_w": 0.020135513550688863,
+        "KL_w_over_wprime": 0.020410997260127586,
+        "two_KL_wprime_over_w_over_cTV_squared": 0.020135513550688867,
+        "two_KL_w_over_wprime_over_cTV_squared": 0.02041099726012759
+      },
+      {
+        "family": 0,
+        "cTV": 1.414213562373095,
+        "w1": 0.5,
+        "w1_prime": 0.97,
+        "weight_loss": 0.44179999999999997,
+        "KL_wprime_over_w": 0.5584050123801785,
+        "KL_w_over_wprime": 1.0753613718423995,
+        "two_KL_wprime_over_w_over_cTV_squared": 0.5584050123801786,
+        "two_KL_w_over_wprime_over_cTV_squared": 1.0753613718423998
+      },
+      {
+        "family": 0,
+        "cTV": 1.414213562373095,
+        "w1": 0.8,
+        "w1_prime": 0.03,
+        "weight_loss": 1.1858,
+        "KL_wprime_over_w": 1.433106913420737,
+        "KL_w_over_wprime": 2.3109357358147395,
+        "two_KL_wprime_over_w_over_cTV_squared": 1.4331069134207373,
+        "two_KL_w_over_wprime_over_cTV_squared": 2.31093573581474
+      },
+      {
+        "family": 0,
+        "cTV": 1.414213562373095,
+        "w1": 0.8,
+        "w1_prime": 0.4,
+        "weight_loss": 0.32000000000000006,
+        "KL_wprime_over_w": 0.3819085009768877,
+        "KL_w_over_wprime": 0.33479528671433423,
+        "two_KL_wprime_over_w_over_cTV_squared": 0.38190850097688783,
+        "two_KL_w_over_wprime_over_cTV_squared": 0.3347952867143343
+      },
+      {
+        "family": 0,
+        "cTV": 1.414213562373095,
+        "w1": 0.8,
+        "w1_prime": 0.97,
+        "weight_loss": 0.05779999999999995,
+        "KL_wprime_over_w": 0.12999021396803964,
+        "KL_w_over_wprime": 0.22527652191357503,
+        "two_KL_wprime_over_w_over_cTV_squared": 0.12999021396803967,
+        "two_KL_w_over_wprime_over_cTV_squared": 0.22527652191357508
+      },
+      {
+        "family": 1,
+        "cTV": 0.7071067811865475,
+        "w1": 0.2,
+        "w1_prime": 0.03,
+        "weight_loss": 0.05780000000000001,
+        "KL_wprime_over_w": 0.018337599446482042,
+        "KL_w_over_wprime": 0.0197209660412591,
+        "two_KL_wprime_over_w_over_cTV_squared": 0.07335039778592818,
+        "two_KL_w_over_wprime_over_cTV_squared": 0.07888386416503641
+      },
+      {
+        "family": 1,
+        "cTV": 0.7071067811865475,
+        "w1": 0.2,
+        "w1_prime": 0.4,
+        "weight_loss": 0.08000000000000002,
+        "KL_wprime_over_w": 0.022582421084357096,
+        "KL_w_over_wprime": 0.021600854143546816,
+        "two_KL_wprime_over_w_over_cTV_squared": 0.0903296843374284,
+        "two_KL_w_over_wprime_over_cTV_squared": 0.08640341657418728
+      },
+      {
+        "family": 1,
+        "cTV": 0.7071067811865475,
+        "w1": 0.2,
+        "w1_prime": 0.97,
+        "weight_loss": 1.1858,
+        "KL_wprime_over_w": 0.31403098476152824,
+        "KL_w_over_wprime": 0.3112644782706332,
+        "two_KL_wprime_over_w_over_cTV_squared": 1.2561239390461132,
+        "two_KL_w_over_wprime_over_cTV_squared": 1.245057913082533
+      },
+      {
+        "family": 1,
+        "cTV": 0.7071067811865475,
+        "w1": 0.5,
+        "w1_prime": 0.03,
+        "weight_loss": 0.44179999999999997,
+        "KL_wprime_over_w": 0.12047481580448399,
+        "KL_w_over_wprime": 0.13670330783077564,
+        "two_KL_wprime_over_w_over_cTV_squared": 0.4818992632179361,
+        "two_KL_w_over_wprime_over_cTV_squared": 0.5468132313231027
+      },
+      {
+        "family": 1,
+        "cTV": 0.7071067811865475,
+        "w1": 0.5,
+        "w1_prime": 0.4,
+        "weight_loss": 0.01999999999999999,
+        "KL_wprime_over_w": 0.0050936119312244635,
+        "KL_w_over_wprime": 0.005146108701076214,
+        "two_KL_wprime_over_w_over_cTV_squared": 0.020374447724897857,
+        "two_KL_w_over_wprime_over_cTV_squared": 0.02058443480430486
+      },
+      {
+        "family": 1,
+        "cTV": 0.7071067811865475,
+        "w1": 0.5,
+        "w1_prime": 0.97,
+        "weight_loss": 0.44179999999999997,
+        "KL_wprime_over_w": 0.11225343360475559,
+        "KL_w_over_wprime": 0.11746303669644914,
+        "two_KL_wprime_over_w_over_cTV_squared": 0.4490137344190225,
+        "two_KL_w_over_wprime_over_cTV_squared": 0.4698521467857967
+      },
+      {
+        "family": 1,
+        "cTV": 0.7071067811865475,
+        "w1": 0.8,
+        "w1_prime": 0.03,
+        "weight_loss": 1.1858,
+        "KL_wprime_over_w": 0.3086093491554009,
+        "KL_w_over_wprime": 0.34608730798331955,
+        "two_KL_wprime_over_w_over_cTV_squared": 1.2344373966216038,
+        "two_KL_w_over_wprime_over_cTV_squared": 1.3843492319332784
+      },
+      {
+        "family": 1,
+        "cTV": 0.7071067811865475,
+        "w1": 0.8,
+        "w1_prime": 0.4,
+        "weight_loss": 0.32000000000000006,
+        "KL_wprime_over_w": 0.08109302162163284,
+        "KL_w_over_wprime": 0.08109302162163284,
+        "two_KL_wprime_over_w_over_cTV_squared": 0.32437208648653143,
+        "two_KL_w_over_wprime_over_cTV_squared": 0.32437208648653143
+      },
+      {
+        "family": 1,
+        "cTV": 0.7071067811865475,
+        "w1": 0.8,
+        "w1_prime": 0.97,
+        "weight_loss": 0.05779999999999995,
+        "KL_wprime_over_w": 0.015504139277624146,
+        "KL_w_over_wprime": 0.016063253485292223,
+        "two_KL_wprime_over_w_over_cTV_squared": 0.0620165571104966,
+        "two_KL_w_over_wprime_over_cTV_squared": 0.0642530139411689
+      },
+      {
+        "family": 2,
+        "cTV": 0.7071067811865475,
+        "w1": 0.2,
+        "w1_prime": 0.03,
+        "weight_loss": 0.05780000000000001,
+        "KL_wprime_over_w": 0.06499510698401983,
+        "KL_w_over_wprime": 0.11263826095678768,
+        "two_KL_wprime_over_w_over_cTV_squared": 0.2599804279360794,
+        "two_KL_w_over_wprime_over_cTV_squared": 0.45055304382715083
+      },
+      {
+        "family": 2,
+        "cTV": 0.7071067811865475,
+        "w1": 0.2,
+        "w1_prime": 0.4,
+        "weight_loss": 0.08000000000000002,
+        "KL_wprime_over_w": 0.05232481437645474,
+        "KL_w_over_wprime": 0.04575811092471789,
+        "two_KL_wprime_over_w_over_cTV_squared": 0.20929925750581901,
+        "two_KL_w_over_wprime_over_cTV_squared": 0.1830324436988716
+      },
+      {
+        "family": 2,
+        "cTV": 0.7071067811865475,
+        "w1": 0.2,
+        "w1_prime": 0.97,
+        "weight_loss": 1.1858,
+        "KL_wprime_over_w": 0.7165534567103684,
+        "KL_w_over_wprime": 1.1554678679073693,
+        "two_KL_wprime_over_w_over_cTV_squared": 2.866213826841474,
+        "two_KL_w_over_wprime_over_cTV_squared": 4.621871471629478
+      },
+      {
+        "family": 2,
+        "cTV": 0.7071067811865475,
+        "w1": 0.5,
+        "w1_prime": 0.03,
+        "weight_loss": 0.44179999999999997,
+        "KL_wprime_over_w": 0.27920250619008924,
+        "KL_w_over_wprime": 0.5376806859212,
+        "two_KL_wprime_over_w_over_cTV_squared": 1.1168100247603572,
+        "two_KL_w_over_wprime_over_cTV_squared": 2.1507227436848004
+      },
+      {
+        "family": 2,
+        "cTV": 0.7071067811865475,
+        "w1": 0.5,
+        "w1_prime": 0.4,
+        "weight_loss": 0.01999999999999999,
+        "KL_wprime_over_w": 0.010067756775344432,
+        "KL_w_over_wprime": 0.010205498630063793,
+        "two_KL_wprime_over_w_over_cTV_squared": 0.040271027101377734,
+        "two_KL_w_over_wprime_over_cTV_squared": 0.04082199452025518
+      },
+      {
+        "family": 2,
+        "cTV": 0.7071067811865475,
+        "w1": 0.5,
+        "w1_prime": 0.97,
+        "weight_loss": 0.44179999999999997,
+        "KL_wprime_over_w": 0.27920250619008924,
+        "KL_w_over_wprime": 0.5376806859211998,
+        "two_KL_wprime_over_w_over_cTV_squared": 1.1168100247603572,
+        "two_KL_w_over_wprime_over_cTV_squared": 2.1507227436847995
+      },
+      {
+        "family": 2,
+        "cTV": 0.7071067811865475,
+        "w1": 0.8,
+        "w1_prime": 0.03,
+        "weight_loss": 1.1858,
+        "KL_wprime_over_w": 0.7165534567103685,
+        "KL_w_over_wprime": 1.1554678679073698,
+        "two_KL_wprime_over_w_over_cTV_squared": 2.8662138268414745,
+        "two_KL_w_over_wprime_over_cTV_squared": 4.62187147162948
+      },
+      {
+        "family": 2,
+        "cTV": 0.7071067811865475,
+        "w1": 0.8,
+        "w1_prime": 0.4,
+        "weight_loss": 0.32000000000000006,
+        "KL_wprime_over_w": 0.19095425048844386,
+        "KL_w_over_wprime": 0.16739764335716711,
+        "two_KL_wprime_over_w_over_cTV_squared": 0.7638170019537757,
+        "two_KL_w_over_wprime_over_cTV_squared": 0.6695905734286686
+      },
+      {
+        "family": 2,
+        "cTV": 0.7071067811865475,
+        "w1": 0.8,
+        "w1_prime": 0.97,
+        "weight_loss": 0.05779999999999995,
+        "KL_wprime_over_w": 0.06499510698401982,
+        "KL_w_over_wprime": 0.11263826095678751,
+        "two_KL_wprime_over_w_over_cTV_squared": 0.25998042793607934,
+        "two_KL_w_over_wprime_over_cTV_squared": 0.45055304382715017
+      },
+      {
+        "family": 3,
+        "cTV": 0.2121320343559642,
+        "w1": 0.2,
+        "w1_prime": 0.03,
+        "weight_loss": 0.05780000000000001,
+        "KL_wprime_over_w": 0.0014793216700888928,
+        "KL_w_over_wprime": 0.0014607423301331093,
+        "two_KL_wprime_over_w_over_cTV_squared": 0.0657476297817286,
+        "two_KL_w_over_wprime_over_cTV_squared": 0.06492188133924934
+      },
+      {
+        "family": 3,
+        "cTV": 0.2121320343559642,
+        "w1": 0.2,
+        "w1_prime": 0.4,
+        "weight_loss": 0.08000000000000002,
+        "KL_wprime_over_w": 0.002111074318878345,
+        "KL_w_over_wprime": 0.002149931458045505,
+        "two_KL_wprime_over_w_over_cTV_squared": 0.09382552528348204,
+        "two_KL_w_over_wprime_over_cTV_squared": 0.09555250924646694
+      },
+      {
+        "family": 3,
+        "cTV": 0.2121320343559642,
+        "w1": 0.2,
+        "w1_prime": 0.97,
+        "weight_loss": 1.1858,
+        "KL_wprime_over_w": 0.03331651690398043,
+        "KL_w_over_wprime": 0.03667717580296927,
+        "two_KL_wprime_over_w_over_cTV_squared": 1.4807340846213533,
+        "two_KL_w_over_wprime_over_cTV_squared": 1.6300967023541904
+      },
+      {
+        "family": 3,
+        "cTV": 0.2121320343559642,
+        "w1": 0.5,
+        "w1_prime": 0.03,
+        "weight_loss": 0.44179999999999997,
+        "KL_wprime_over_w": 0.011929183401057808,
+        "KL_w_over_wprime": 0.011444264079003695,
+        "two_KL_wprime_over_w_over_cTV_squared": 0.5301859289359029,
+        "two_KL_w_over_wprime_over_cTV_squared": 0.5086339590668312
+      },
+      {
+        "family": 3,
+        "cTV": 0.2121320343559642,
+        "w1": 0.5,
+        "w1_prime": 0.4,
+        "weight_loss": 0.01999999999999999,
+        "KL_wprime_over_w": 0.000559525325726215,
+        "KL_w_over_wprime": 0.0005535963058446169,
+        "two_KL_wprime_over_w_over_cTV_squared": 0.02486779225449846,
+        "two_KL_w_over_wprime_over_cTV_squared": 0.024604280259760764
+      },
+      {
+        "family": 3,
+        "cTV": 0.2121320343559642,
+        "w1": 0.5,
+        "w1_prime": 0.97,
+        "weight_loss": 0.44179999999999997,
+        "KL_wprime_over_w": 0.013276308146641567,
+        "KL_w_over_wprime": 0.014202079430329688,
+        "two_KL_wprime_over_w_over_cTV_squared": 0.5900581398507366,
+        "two_KL_w_over_wprime_over_cTV_squared": 0.6312035302368754
+      },
+      {
+        "family": 3,
+        "cTV": 0.2121320343559642,
+        "w1": 0.8,
+        "w1_prime": 0.03,
+        "weight_loss": 1.1858,
+        "KL_wprime_over_w": 0.03430105132699511,
+        "KL_w_over_wprime": 0.03164471395089046,
+        "two_KL_wprime_over_w_over_cTV_squared": 1.5244911700886723,
+        "two_KL_w_over_wprime_over_cTV_squared": 1.406431731150688
+      },
+      {
+        "family": 3,
+        "cTV": 0.2121320343559642,
+        "w1": 0.8,
+        "w1_prime": 0.4,
+        "weight_loss": 0.32000000000000006,
+        "KL_wprime_over_w": 0.0096435419260079,
+        "KL_w_over_wprime": 0.009174189276659625,
+        "two_KL_wprime_over_w_over_cTV_squared": 0.42860186337812917,
+        "two_KL_w_over_wprime_over_cTV_squared": 0.40774174562931687
+      },
+      {
+        "family": 3,
+        "cTV": 0.2121320343559642,
+        "w1": 0.8,
+        "w1_prime": 0.97,
+        "weight_loss": 0.05779999999999995,
+        "KL_wprime_over_w": 0.0018898510830755652,
+        "KL_w_over_wprime": 0.0019439111807060191,
+        "two_KL_wprime_over_w_over_cTV_squared": 0.08399338147002516,
+        "two_KL_w_over_wprime_over_cTV_squared": 0.08639605247582312
+      }
+    ],
+    "KL_directions": [
+      "mixture at w relative to mixture at w_prime (manuscript Lemma 2.2)",
+      "mixture at w_prime relative to mixture at w"
+    ],
+    "logarithm": "natural log"
+  },
+  "point_mass_exact_trace": {
+    "passed": true,
+    "records": [
+      {
+        "K": 2,
+        "symbolic_I_times_candidate_inverse_equals_identity": true,
+        "symbolic_trace_equals_one_minus_sum_w_squared": true,
+        "candidate_inverse": "Z^T (diag(w)-w w^T) Z",
+        "numeric_trace": 0.44444444444444436,
+        "numeric_one_minus_sum_w_squared": 0.4444444444444444
+      },
+      {
+        "K": 3,
+        "symbolic_I_times_candidate_inverse_equals_identity": true,
+        "symbolic_trace_equals_one_minus_sum_w_squared": true,
+        "candidate_inverse": "Z^T (diag(w)-w w^T) Z",
+        "numeric_trace": 0.611111111111111,
+        "numeric_one_minus_sum_w_squared": 0.6111111111111112
+      },
+      {
+        "K": 4,
+        "symbolic_I_times_candidate_inverse_equals_identity": true,
+        "symbolic_trace_equals_one_minus_sum_w_squared": true,
+        "candidate_inverse": "Z^T (diag(w)-w w^T) Z",
+        "numeric_trace": 0.7000000000000001,
+        "numeric_one_minus_sum_w_squared": 0.7
+      }
+    ],
+    "condition": "interior simplex weights; fixed point-mass endmembers"
+  },
+  "all_passed": true,
+  "elapsed_seconds": 2.8750142000062624
+}

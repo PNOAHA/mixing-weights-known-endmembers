@@ -4,7 +4,7 @@ One Slurm array task = one (K, family, parameter) combination. For every interio
   (a) point quantities (lambda_min/max, delta0, r, delta_max, c_TV, delta0_TV, rho, lambda_*),
   (b) the three exact separation moduli on a delta grid (K=3: 1-D angle grid + Brent; K=4: Fibonacci grid on S^2 in T + Nelder-Mead),
       with the Theorem 3.1 / 3.2(i)(ii) / Lemma 3.3 checks,
-  (c) Monte Carlo of the maximum likelihood estimator (EM + tangent Newton) at n in N_LIST: risk, tau/n, ratio, P(E1), boundary fraction.
+  (c) Monte Carlo of the maximum likelihood estimator (EM + tangent Newton + dual-gap/SLSQP acceptance) at n in N_LIST: risk, tau/n, ratio, P(E1), boundary fraction, dual-gap stats.
 Usage: python run_grid_d107.py TASK_ID   (TASK_ID in 0..len(TASKS)-1)  -> results/grid_<K>_<fam>_<par>.csv (+ _mle.csv)
 Deterministic: seed = 20260919 + TASK_ID. numpy/scipy only.
 """
@@ -14,6 +14,7 @@ from scipy.optimize import minimize, minimize_scalar
 from multiprocessing import Pool
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from generator import tangent_basis, family_F1, family_F2, family_F3, gram, gram_min, delta0_of_u, _dist_vec
+from mle_dualgap import polish_mle
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(HERE, 'results'); os.makedirs(OUT, exist_ok=True)
@@ -120,24 +121,135 @@ def point_q(P, w, Z):
     return dict(I=I, lam_min=float(lam[0]), lam_max=float(lam[-1]), delta0=float(d0), r=float(r), delta_max=float(dmax), rho=rho, lam_star=lam_star, tau=tau)
 
 
-def mle_vectorized(P, N, W0, iters_em=2000, iters_newton=20):
+def dual_gap(P, N, W):
+    """KKT dual gap max_k g_k - w^T g for average multinomial score g = (N/n) @ (P/pw)^T / row? 
+    Here g_k = n^{-1} sum_x N_x p_k(x)/p_w(x) = (N * (P_k/pw)).sum / n per row.
+    """
+    n = N.sum(1, keepdims=True).astype(float)
+    pw = np.maximum(W @ P, 1e-300)
+    # g: (R, K) with g_rk = sum_m N_rm * P_km / pw_rm / n_r
+    g = (np.where(N > 0, N / pw, 0.0) @ P.T) / n
+    return (g.max(1) - (W * g).sum(1))
+
+
+def _proj_simplex(v):
+    v = np.asarray(v, float)
+    u = np.sort(v)[::-1]
+    cssv = np.cumsum(u) - 1
+    ind = np.arange(1, len(v) + 1)
+    rho = ind[u - cssv / ind > 0][-1]
+    theta = cssv[rho - 1] / rho
+    return np.maximum(v - theta, 0.0)
+
+
+def refine_mle_slsqp(P, N_row, w0, gap_tol=1e-8):
+    """Single-replication constrained MLE on the simplex via SLSQP (fallback).
+    Returns best (w, gap, success) among starts; caller should keep prior w if gap does not improve.
+    """
+    K = P.shape[0]
+    def neg_ll(w):
+        pw = np.maximum(w @ P, 1e-300)
+        return -float((N_row * np.log(pw)).sum())
+    cons = {'type': 'eq', 'fun': lambda w: float(w.sum() - 1.0)}
+    bounds = [(0.0, 1.0)] * K
+    starts = [_proj_simplex(w0)]
+    # barycentre and coordinate-near starts help near faces
+    starts.append(np.ones(K) / K)
+    for k in range(K):
+        e = np.full(K, 1e-6); e[k] = 1.0; starts.append(_proj_simplex(e))
+    best_w, best_gap, best_ok = _proj_simplex(w0), float('inf'), False
+    for s in starts:
+        r = minimize(neg_ll, s, method='SLSQP', bounds=bounds, constraints=cons,
+                     options={'ftol': 1e-14, 'maxiter': 400, 'disp': False})
+        w = _proj_simplex(np.maximum(r.x, 0.0))
+        gap = float(dual_gap(P, N_row[None, :], w[None, :])[0])
+        if gap < best_gap:
+            best_w, best_gap, best_ok = w, gap, bool(getattr(r, 'success', False)) or gap <= gap_tol
+        if best_gap <= gap_tol:
+            break
+    return best_w, best_gap, best_ok
+
+
+def mle_vectorized(P, N, W0, iters_em=2000, iters_newton=20, gap_tol=1e-8, refine=True, strict=True):
+    """EM + tangent Newton with per-replication KKT dual-gap acceptance.
+    Returns W, gaps, accepted mask, n_refined. The default strict mode
+    includes simplex feasibility and refuses to return unaccepted refined
+    solutions. strict=False reproduces the first-pass solver for auditing.
+    Dual gap: max_k g_k - w^T g with g_k = n^{-1} sum_x N_x p_k(x)/p_w(x).
+    """
     n = N.sum(1, keepdims=True); W = W0.copy(); K = P.shape[0]; Z = tangent_basis(K)
+    Rbatch = W.shape[0]
+    newton_ok = np.ones(Rbatch, dtype=bool)
     for _ in range(iters_em):
         pw = W @ P
-        W = W * ((np.where(N > 0, N / np.maximum(pw, 1e-300), 0.0)) @ P.T) / n   # 0/0 (empty private cell, weight underflow) -> 0
+        W = W * ((np.where(N > 0, N / np.maximum(pw, 1e-300), 0.0)) @ P.T) / n   # 0/0 -> 0
     def ll(W): return (N * np.log(np.maximum(W @ P, 1e-300))).sum(1)
     for _ in range(iters_newton):
-        pw = W @ P; R = P[None] / pw[:, None, :]
+        active = newton_ok
+        if not active.any():
+            break
+        pw = W @ P
+        if strict:
+            # Scores from unobserved cells are zero. In particular, a private
+            # cell with count zero and weight zero must not produce 0/0.
+            R = np.divide(P[None], pw[:, None, :],
+                          out=np.zeros((Rbatch, K, P.shape[1])),
+                          where=(N[:, None, :] > 0) & (pw[:, None, :] > 0))
+        else:
+            R = P[None] / pw[:, None, :]
         grad = np.einsum('rm,rkm->rk', N, R) @ Z
         H = np.einsum('rm,rkm,rlm->rkl', N, R, R); H = np.einsum('ki,rkl,lj->rij', Z, H, Z)
-        try: step = np.linalg.solve(H, grad[:, :, None])[:, :, 0] @ Z.T
-        except np.linalg.LinAlgError: break
-        alpha = np.ones((W.shape[0], 1)); ll0 = ll(W)
+        step = np.zeros_like(W)
+        # Solve per-row so one LinAlgError does not abort the whole batch
+        for i in np.where(active)[0]:
+            try:
+                step[i] = np.linalg.solve(H[i], grad[i]) @ Z.T
+            except np.linalg.LinAlgError:
+                newton_ok[i] = False
+        alpha = np.ones((Rbatch, 1)); ll0 = ll(W)
         for _bt in range(30):
-            Wn = W + alpha * step; ok = (Wn.min(1) > 0) & (ll(Wn) >= ll0 - 1e-12); alpha[~ok] *= 0.5
-            if ok.all(): break
-        Wn = W + alpha * step; W = np.where((Wn.min(1) > 0)[:, None], Wn, W)
-    return W
+            Wn = W + alpha * step
+            ok = active & (Wn.min(1) > 0) & (ll(Wn) >= ll0 - 1e-12)
+            # only shrink failed active rows
+            fail = active & ~ok
+            alpha[fail] *= 0.5
+            if not fail.any():
+                break
+        Wn = W + alpha * step
+        take = active & (Wn.min(1) > 0)
+        if strict:
+            take &= np.isfinite(Wn).all(1) & (ll(Wn) >= ll0 - 1e-12)
+        W = np.where(take[:, None], Wn, W)
+    gaps = dual_gap(P, N, W)
+    accepted = gaps <= gap_tol
+    if strict:
+        accepted &= (np.isfinite(gaps) & np.isfinite(W).all(1)
+                     & (W.min(1) >= 0) & (np.abs(W.sum(1) - 1) <= 1e-12))
+    n_refined = 0
+    if refine and (not accepted.all()):
+        for i in np.where(~accepted)[0]:
+            if strict:
+                w_new, gap_new, ok, reason = polish_mle(P, N[i], W[i], gap_tol=gap_tol)
+                if not ok:
+                    raise RuntimeError(f'MLE acceptance failed for replication {i}: gap={gap_new}, {reason}')
+                W[i], gaps[i] = w_new, gap_new
+                n_refined += 1
+                continue
+            w_new, gap_new, _ok = refine_mle_slsqp(P, N[i], W[i], gap_tol=gap_tol)
+            # Never worsen the dual gap; keep EM/Newton if refine fails
+            if gap_new < gaps[i] - 1e-16:
+                W[i] = w_new
+                gaps[i] = gap_new
+                n_refined += 1
+        accepted = gaps <= gap_tol
+        if strict:
+            # Recompute the certificate independently of the polisher result.
+            gaps = dual_gap(P, N, W)
+            accepted = (np.isfinite(gaps) & (gaps <= gap_tol) & np.isfinite(W).all(1)
+                        & (W.min(1) >= 0) & (np.abs(W.sum(1) - 1) <= 1e-12))
+            if not accepted.all():
+                raise RuntimeError('MLE feasibility/dual-gap acceptance failed; grid not written')
+    return W, gaps, accepted, n_refined
 
 
 def work_point(args):
@@ -169,12 +281,17 @@ def work_point(args):
     if do_mle:
         I = q['I']; lam = q['lam_min']; pw = w @ P; ZR = Z.T @ (P / pw)
         for n in N_LIST:
-            N = rng.multinomial(n, pw, size=REPS); What = mle_vectorized(P, N, np.tile(np.ones(K) / K, (REPS, 1)))
+            N = rng.multinomial(n, pw, size=REPS)
+            What, gaps, accepted, n_ref = mle_vectorized(P, N, np.tile(np.ones(K) / K, (REPS, 1)))
+            if not accepted.all():
+                raise RuntimeError('Unaccepted MLE replication; refusing to aggregate risk')
             x2 = ((What - w) ** 2).sum(1); risk = x2.mean(); se = x2.std() / np.sqrt(REPS)
             Ghat = np.einsum('rm,im,jm->rij', N, ZR, ZR); E1 = (np.linalg.norm(Ghat - n * I, 2, axis=(1, 2)) <= n * lam / 2).mean()
-            bnd = (What.min(1) < 1e-7).mean()
+            bnd = (What.min(1) < 1e-7).mean()  # numerically on a face: min_k w_hat < 1e-7
             mle_rows.append(dict(w=base['w'], n=n, risk=risk, se=se, tau_over_n=q['tau'] / n, ratio=n * risk / q['tau'], P_E1=E1, boundary_frac=bnd,
-                                 lam_min=lam, lam_max=q['lam_max'], rho_w=rho_w, tau=q['tau']))
+                                 lam_min=lam, lam_max=q['lam_max'], rho_w=rho_w, tau=q['tau'],
+                                 dual_gap_max=float(gaps.max()), dual_gap_med=float(np.median(gaps)),
+                                 dual_gap_accept_frac=float(accepted.mean()), n_refined=int(n_ref)))
     return rows, mle_rows
 
 

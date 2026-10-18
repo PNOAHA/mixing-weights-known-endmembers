@@ -3,7 +3,7 @@
 Recomputes the theorem checks with relative tolerances (the cluster run used an absolute 1e-9 on TV, which flags 1e-8
 relative differences between two Brent refinements), prints every number quoted in the paper, and writes figs/d107/*.pdf|png.
 Okabe-Ito palette; Times; vector PDF + 300 dpi PNG."""
-import os, csv, json, glob, collections
+import os, csv, json, glob, collections, sys
 import numpy as np
 import matplotlib
 matplotlib.use('Agg')
@@ -13,6 +13,16 @@ from matplotlib import tri as mtri
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 RES = os.path.join(HERE, 'results', 'd107'); FIG = os.path.join(HERE, 'figs', 'd107'); os.makedirs(FIG, exist_ok=True)
+ONLY_FIG123 = '--fig123-only' in sys.argv
+FIG123 = ('figG2_k3_mle_ratio', 'figG3_mle_ratio_vs_minw', 'figG4_k3_anchor_vs_mle')
+
+
+def save_figure(fig, name):
+    """The JMVA refresh writes only its three figures when requested."""
+    if ONLY_FIG123 and name not in FIG123:
+        return
+    for suffix in ('pdf', 'png'):
+        fig.savefig(os.path.join(FIG, name + '.' + suffix), bbox_inches='tight')
 OK = dict(blue='#0072B2', orange='#D55E00', green='#009E73', pink='#CC79A7', sky='#56B4E9', yellow='#E69F00', black='#000000', grey='#7f7f7f')
 def style(S):
     """09-20: scale fonts/lines by the print reduction factor S (figure width / EJS text width 5.66 in)"""
@@ -35,7 +45,7 @@ def load(tag):
         mle = list(csv.DictReader(open(p, encoding='utf-8')))
         for r in mle:
             for k in r:
-                if k != 'w': r[k] = float(r[k])
+                if k != 'w': r[k] = float(r[k]) if r[k] else np.nan
             r['wv'] = np.array(json.loads(r['w']))
     return rows, mle
 
@@ -146,7 +156,7 @@ tern_panel(axes[1], W, d0 / rr, r'(b) $\delta_0(w)/r(w)$', log=True, fmt='%.1f')
 tern_panel(axes[2], W, d0tv / d0, r'(c) $\delta_0^{\rm TV}(w)/\delta_0(w)$', fmt='%.2f')
 tern_panel(axes[3], W, ratioH_big, r'(d) $\omega_H/(\omega_\chi/\sqrt{2})$ at largest $\delta\leq\delta_0$', cmap='plasma', fmt='%.2f')
 fig.suptitle(r'$K=3$, family F1 ($m=6$, $\theta=0.3$), 91 lattice points of $\Delta$', fontsize=9 * S, y=1.02)
-fig.tight_layout(); fig.savefig(os.path.join(FIG, 'figG1_k3_landscape.pdf'), bbox_inches='tight'); fig.savefig(os.path.join(FIG, 'figG1_k3_landscape.png'), bbox_inches='tight'); plt.close(fig)
+fig.tight_layout(); save_figure(fig, 'figG1_k3_landscape'); plt.close(fig)
 out['G1'] = dict(lam_min_range=[float(lam.min()), float(lam.max())], d0_over_r=[float((d0 / rr).min()), float((d0 / rr).max())],
                  d0tv_over_d0=[float((d0tv / d0).min()), float((d0tv / d0).max())], frac_d0tv_le_d0=float((d0tv <= d0 + 1e-9).mean()),
                  ratioH=[float(ratioH.min()), float(ratioH.max())], ratioH_big=[float(ratioH_big.min()), float(ratioH_big.max())], delta_big=[float(delta_big.min()), float(delta_big.max())], pos=[float(pos.min()), float(pos.max())])
@@ -165,7 +175,7 @@ for ax, n in zip(axes, (100, 400, 1600, 6400)):
     G2[n] = dict(all=[float(rat.min()), float(rat.max())], inner_minw_ge_0p1=[float(rat[inner].min()), float(rat[inner].max())], inner_median=float(np.median(rat[inner])),
                  bfrac_max=float(max(mle_by[n][w]['boundary_frac'] for w in mle_by[n])))
 fig.suptitle(r'$K=3$, F1 ($\theta=0.3$): $n\,\mathbb{E}_w\|\hat w_n-w\|^2/\mathrm{tr}\,I(w)^{-1}$ for the maximum likelihood estimator (2000 replications per lattice point)', fontsize=9 * S, y=1.02)
-fig.tight_layout(); fig.savefig(os.path.join(FIG, 'figG2_k3_mle_ratio.pdf'), bbox_inches='tight'); fig.savefig(os.path.join(FIG, 'figG2_k3_mle_ratio.png'), bbox_inches='tight'); plt.close(fig)
+fig.tight_layout(); save_figure(fig, 'figG2_k3_mle_ratio'); plt.close(fig)
 out['G2'] = G2; print('G2', G2)
 
 # ---------------------------------------------------------------- Fig G3: K=4 (F1 theta=0.3) ratio vs min_k w_k, all n ; and K=3 all thetas overlay
@@ -185,7 +195,7 @@ for ax, K, tags in ((axes[0], 3, [f'3_F1_{t}' for t in (0.0, 0.3, 0.6)]), (axes[
     ax.axhline(1, color='k', lw=0.8); ax.set_xscale('log'); ax.set_xlabel(r'$\theta_n=\rho_w^2/(n\lambda_{\min}(I(w)))$'); ax.set_ylabel(r'$n\,\mathbb{E}\|\hat w_n-w\|^2/\mathrm{tr}\,I(w)^{-1}$')
     ax.set_title(rf'$K={K}$, F1, $\theta=0$ (triangles), $0.3$ (circles), $0.6$ (squares)', fontsize=7.5 * S); ax.set_ylim(0, 1.8)
     if K == 3: ax.legend(loc='lower left', fontsize=6.5 * S)
-fig.tight_layout(); fig.savefig(os.path.join(FIG, 'figG3_mle_ratio_vs_minw.pdf'), bbox_inches='tight'); fig.savefig(os.path.join(FIG, 'figG3_mle_ratio_vs_minw.png'), bbox_inches='tight'); plt.close(fig)
+fig.tight_layout(); save_figure(fig, 'figG3_mle_ratio_vs_minw'); plt.close(fig)
 out['G3'] = G3; print('G3', {k: v for k, v in G3.items() if 'n6400' in k or 'n400' in k})
 bins = [(0, 0.3), (0.3, 1), (1, 3), (3, 10), (10, 100), (100, 1e9)]; G3b = {}
 for K in (3, 4):
@@ -210,7 +220,7 @@ for ax, a in zip(axes, (0.3, 0.1, 0.03)):
     lamr = np.array([r['lam_min'] for r in pts]); lb = 1 / (27 * n * lamr)
     G4[a] = dict(ratio_range=[float(ratio.min()), float(ratio.max())], median=float(np.median(ratio)), mle_over_lb=[float((mle_risk / lb).min()), float((mle_risk / lb).max())])
 fig.suptitle(r'$K=3$, anchor family F2 ($m=6$ shared cells, $\theta=0.3$): $\log_{10}$ of risk(anchor count)/risk(MLE) at $n=1600$ over $\Delta$', fontsize=9 * S, y=1.02)
-fig.tight_layout(); fig.savefig(os.path.join(FIG, 'figG4_k3_anchor_vs_mle.pdf'), bbox_inches='tight'); fig.savefig(os.path.join(FIG, 'figG4_k3_anchor_vs_mle.png'), bbox_inches='tight'); plt.close(fig)
+fig.tight_layout(); save_figure(fig, 'figG4_k3_anchor_vs_mle'); plt.close(fig)
 out['G4'] = G4; print('G4', G4)
 
 # ---------------------------------------------------------------- Fig G5: Gaussian F3: lambda_min(I(w))/Lambda_h over the simplex, h=1,2,4,8 (K=3) and K=4 vs min w
@@ -231,7 +241,7 @@ for ax, h in zip(axes, (1.0, 2.0, 4.0, 8.0)):
         l4 = np.array([r4[w]['lam_min'] for w in r4]); L4 = Lambda_h(4, h)
         G5[h]['K4_range'] = [float((l4 / L4).min()), float((l4 / L4).max())]; G5[h]['K4_Lambda_h_h6'] = L4 * h ** 6
 fig.suptitle(r'$K=3$, Gaussian family F3 (nodes $t=(-1,0,1)$, 4001 cells): $\lambda_{\min}(I(w))/\Lambda_h$, uniformity in $w$ of Proposition 3.5(c)', fontsize=9 * S, y=1.02)
-fig.tight_layout(); fig.savefig(os.path.join(FIG, 'figG5_gauss_uniform.pdf'), bbox_inches='tight'); fig.savefig(os.path.join(FIG, 'figG5_gauss_uniform.png'), bbox_inches='tight'); plt.close(fig)
+fig.tight_layout(); save_figure(fig, 'figG5_gauss_uniform'); plt.close(fig)
 import math
 G5['pred_K3'] = RKK2(3) / math.factorial(2); G5['pred_K4'] = RKK2(4) / math.factorial(3)
 out['G5'] = G5; print('G5', G5)
@@ -251,7 +261,7 @@ for ax, K in ((axes[0], 3), (axes[1], 4)):
     ax.axhline(1, color='k', lw=0.8, label=r'Lemma 3.3 upper line'); ax.axhline(0.5, color=OK['grey'], lw=0.8, ls='--', label=r'small-$\delta$ limit $1/2$ ($H^2\approx\chi^2/8$)')
     ax.set_xscale('log'); ax.set_xlabel(r'$\omega_\chi(\delta;w)$'); ax.set_ylabel(r'$\omega_H/(\omega_\chi/\sqrt{2})$'); ax.set_title(rf'$K={K}$, F1, all lattice points, $\delta\leq\delta_0(w)$', fontsize=8.5 * S); ax.set_ylim(0, 1.05)
     if K == 3: ax.legend(ncol=2, loc='lower left', fontsize=6 * S)
-fig.tight_layout(); fig.savefig(os.path.join(FIG, 'figG6_hellinger_sandwich.pdf'), bbox_inches='tight'); fig.savefig(os.path.join(FIG, 'figG6_hellinger_sandwich.png'), bbox_inches='tight'); plt.close(fig)
+fig.tight_layout(); save_figure(fig, 'figG6_hellinger_sandwich'); plt.close(fig)
 out['G6'] = G6; out['G6_lower_factor_min'] = float(min(v[2] for v in G6.values())); out['G6_ratio_range'] = [float(min(v[0] for v in G6.values())), float(max(v[1] for v in G6.values()))]; print('G6', G6)
 # small-delta constant: omega_H^2/omega_chi^2 at the smallest delta (0.02) over every lattice point of every family (expected -> 1/8)
 sq = []
@@ -261,5 +271,10 @@ for t, (rows_t, _) in data.items():
 sq = np.array(sq); out['H2_over_chi2_at_delta0p02'] = dict(n=int(len(sq)), min=float(sq.min()), max=float(sq.max()), median=float(np.median(sq)), target=0.125)
 print('H^2/chi^2 at delta=0.02:', out['H2_over_chi2_at_delta0p02'])
 
-json.dump(out, open(os.path.join(RES, '_summary_numbers.json'), 'w'), indent=1)
+if ONLY_FIG123:
+    summary = {k: v for k, v in out.items() if k in ('G2', 'G3', 'G3_theta_bins', 'G2_se_rel', 'G4')}
+    summary_name = '_summary_fig123_dualgap.json'
+else:
+    summary, summary_name = out, '_summary_numbers.json'
+json.dump(summary, open(os.path.join(RES, summary_name), 'w'), indent=1)
 print('figures written to', FIG)

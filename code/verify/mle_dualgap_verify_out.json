@@ -1,0 +1,89 @@
+{
+  "generated_at": "2026-10-18T11:17:17.845698+08:00",
+  "rng": {
+    "archive_risk": 0.0015318709511596168,
+    "batches": {
+      "no_burn": {
+        "risk": 0.0016104544942903932,
+        "risk_minus_archive": 7.858354313077637e-05,
+        "counts_sha256": "af4b119f412185e33d289b2884b0186b01ca990cae4f502f39888f6d98444eef"
+      },
+      "burn_previous_N_LIST": {
+        "risk": 0.0015318709511596134,
+        "risk_minus_archive": -3.469446951953614e-18,
+        "counts_sha256": "c63b2597c6c9a0840ea3bcad6eebb798588e145d37eb17a2fa646a031992b390"
+      }
+    }
+  },
+  "polisher": {
+    "cases": 720,
+    "accepted": 720,
+    "worst_gap": 9.896554908905841e-09,
+    "issues": []
+  },
+  "csv_snapshot": {
+    "3_F1_0.0": {
+      "rows": 364,
+      "has_gap_columns": true,
+      "max_gap": 9.998919026088515e-09,
+      "min_accept_frac": 1.0,
+      "failed_reps": 0
+    },
+    "3_F1_0.3": {
+      "rows": 364,
+      "has_gap_columns": true,
+      "max_gap": 9.999655770087656e-09,
+      "min_accept_frac": 1.0,
+      "failed_reps": 0
+    },
+    "3_F1_0.6": {
+      "rows": 364,
+      "has_gap_columns": true,
+      "max_gap": 9.999891137368877e-09,
+      "min_accept_frac": 1.0,
+      "failed_reps": 0
+    },
+    "3_F2_0.3": {
+      "rows": 364,
+      "has_gap_columns": true,
+      "max_gap": 4.683964327512058e-09,
+      "min_accept_frac": 1.0,
+      "failed_reps": 0
+    },
+    "3_F2_0.1": {
+      "rows": 364,
+      "has_gap_columns": true,
+      "max_gap": 9.983480930841893e-09,
+      "min_accept_frac": 1.0,
+      "failed_reps": 0
+    },
+    "3_F2_0.03": {
+      "rows": 364,
+      "has_gap_columns": true,
+      "max_gap": 9.999190364595734e-09,
+      "min_accept_frac": 1.0,
+      "failed_reps": 0
+    },
+    "4_F1_0.0": {
+      "rows": 660,
+      "has_gap_columns": true,
+      "max_gap": 9.999273520300278e-09,
+      "min_accept_frac": 1.0,
+      "failed_reps": 0
+    },
+    "4_F1_0.3": {
+      "rows": 660,
+      "has_gap_columns": true,
+      "max_gap": 9.999968630935996e-09,
+      "min_accept_frac": 1.0,
+      "failed_reps": 0
+    },
+    "4_F1_0.6": {
+      "rows": 660,
+      "has_gap_columns": true,
+      "max_gap": 9.999800765214673e-09,
+      "min_accept_frac": 1.0,
+      "failed_reps": 0
+    }
+  }
+}
